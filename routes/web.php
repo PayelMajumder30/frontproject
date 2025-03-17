@@ -41,3 +41,8 @@ Route::get('/buttons', function(){
 Route::get('/notifications', function(){
     return view('notifications');
 })->name('notifications');
+
+//UI elements/typography
+Route::get('/typography', function(){
+    return view('typography');
+})->name('typography');

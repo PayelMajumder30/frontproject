@@ -46,7 +46,7 @@
                         <a href="{{route('notifications')}}">Notifications</a>
                     </li>
                     <li>
-                        <a href="typography.html">Typography</a>
+                        <a href="{{route('typography')}}">Typography</a>
                     </li>
                     <li>
                         <a href="icons.html"> Icons</a>

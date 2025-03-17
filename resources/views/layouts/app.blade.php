@@ -62,7 +62,7 @@
         <!-- Metis Menu Plugin JavaScript -->
         <script src="{{ asset('js/metisMenu.min.js')}}"></script>
 
-        {{-- <!-- Morris Charts JavaScript -->
+        <!-- Morris Charts JavaScript -->
         <script src="{{ asset('js/raphael.min.js')}}"></script>
         <script src="{{ asset('js/morris.min.js')}}"></script>
         <script src="{{ asset('js/morris-data.js')}}"></script>
@@ -74,7 +74,7 @@
         <script src="{{ asset('js/flot/jquery.flot.resize.js')}}"></script>
         <script src="{{ asset('js/flot/jquery.flot.time.js')}}"></script>
         <script src="{{ asset('js/flot/jquery.flot.tooltip.min.js')}}"></script>
-        <script src="{{ asset('js/flot-data.js')}}"></script> --}}
+        <script src="{{ asset('js/flot-data.js')}}"></script>
         
         <!-- DataTables JavaScript -->
         <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
