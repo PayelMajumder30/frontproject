@@ -1,8 +1,16 @@
 @extends('layouts.app')
 
 @section('stylesheets')
+
     <!-- Custom CSS -->
     <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+
+    
+    <!-- DataTables CSS -->
+    <link href="{{ asset('css/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -749,13 +757,20 @@
 
 
 @endsection
+
 @section('script')
-<script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
+
+    <!-- DataTables JavaScript -->
+    <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('js/dataTables/dataTables.bootstrap.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
         });
-    });
-</script>
+    </script>
+    
 @endsection
  
