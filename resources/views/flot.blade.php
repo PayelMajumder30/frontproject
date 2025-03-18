@@ -1,4 +1,13 @@
 @extends('layouts.app')
+
+@section('title', 'Float')
+
+@section('stylesheets')
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+@endsection
+
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -107,4 +116,17 @@
     </div>
     <!-- /.row -->
 </div>
+@endsection
+
+@section('script')
+
+    <!-- Flot Charts JavaScript -->
+    <script src="{{ asset('js/flot/excanvas.min.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.time.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.tooltip.min.js')}}"></script>
+    <script src="{{ asset('js/flot-data.js')}}"></script>
+    
 @endsection

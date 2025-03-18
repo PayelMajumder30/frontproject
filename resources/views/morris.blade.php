@@ -1,4 +1,17 @@
 @extends('layouts.app')
+
+@section('title', 'Morris')
+
+@section('stylesheets')
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+    <link href="{{ asset ('css/metisMenu.min.css')}}" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset ('css/morris.css')}}" rel="stylesheet">
+
+@endsection
+
+
 @section('content')
         <div class="container-fluid">
             <div class="row">
@@ -88,4 +101,13 @@
     <!-- /#page-wrapper -->
 
 
+@endsection
+
+@section('script')
+
+    <!-- Morris Charts JavaScript -->
+    <script src="{{ asset('js/raphael.min.js')}}"></script>
+    <script src="{{ asset('js/morris.min.js')}}"></script>
+    <script src="{{ asset('js/morris-data.js')}}"></script>
+    
 @endsection

@@ -1,4 +1,12 @@
 @extends('layouts.app')
+
+@section('title', 'forms')
+
+@section('stylesheets')
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 <div class="container-fluid">

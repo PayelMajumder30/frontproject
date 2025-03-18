@@ -1,4 +1,26 @@
 @extends('layouts.app')
+
+@section('title', 'Dashboard')
+
+@section('stylesheets')
+
+    <!-- Timeline CSS -->
+    <link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset ('css/morris.css')}}" rel="stylesheet">
+
+    
+    <!-- DataTables CSS -->
+    {{-- <link href="{{ asset('css/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet"> --}}
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -598,4 +620,26 @@
     </div>
     <!-- /.row -->
 </div>
+@endsection
+
+@section('script')
+
+    <!-- Morris Charts JavaScript -->
+    <script src="{{ asset('js/raphael.min.js')}}"></script>
+    <script src="{{ asset('js/morris.min.js')}}"></script>
+    <script src="{{ asset('js/morris-data.js')}}"></script>
+
+    <!-- Flot Charts JavaScript -->
+    {{-- <script src="{{ asset('js/flot/excanvas.min.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.time.js')}}"></script>
+    <script src="{{ asset('js/flot/jquery.flot.tooltip.min.js')}}"></script>
+    <script src="{{ asset('js/flot-data.js')}}"></script>
+    
+    <!-- DataTables JavaScript -->
+    <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('js/dataTables/dataTables.bootstrap.min.js')}}"></script> --}}
+    
 @endsection

@@ -1,4 +1,10 @@
 @extends('layouts.app')
+
+@section('stylesheets')
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
  
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
