@@ -72,7 +72,9 @@
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                <i class="fa fa-user fa-fw"></i>
+                @if (Auth::user()) {{ Auth::user()->name}} <b class="caret"></b>
+                @endif
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
