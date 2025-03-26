@@ -15,7 +15,8 @@ class CheckIsAdmin
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (! $request->user()->isAdmin($role)) {
+        if (! $request->user()->isAdmin($request->user()->role)) {
+            // If authenticated user is not ADMIN then abort
             abort(401, 'This action is unauthorized.');
         }
         return $next($request);

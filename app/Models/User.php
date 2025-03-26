@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function isAdmin($role)
     {
-        if ($role == 'ADMIN') {
+        if (strtoupper($role) == 'ADMIN') {
             return true;
         }
         return false;
