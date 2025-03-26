@@ -83,7 +83,12 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('logout-form').submit()">
+                        <i class="fa fa-sign-out fa-fw"></i> Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </li>
