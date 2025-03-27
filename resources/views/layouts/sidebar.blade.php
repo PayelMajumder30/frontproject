@@ -15,6 +15,14 @@
             <li>
                 <a href="{{ route('dashboard')}}" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+            @if(auth()->check() && auth()->user()->role === 'admin')
+                <li>
+                    <a href="{{ route('users') }}">
+                        <i class="fa fa-envelope fa-fw"></i> User Queries
+                    </a>
+                </li>
+            @endif
+            
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -57,6 +65,12 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+            @if(auth()->check() && auth()->user()->role === 'user')
+                <li>
+                    <a href="{{route('users.chat', ['userId' => auth()->id()])}}" ><i class="fa fa-envelope fa-fw"></i> Chat with Admin</a>
+                </li>
+            @endif
+
             <li>
                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

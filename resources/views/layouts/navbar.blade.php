@@ -72,7 +72,9 @@
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                <i class="fa fa-user fa-fw"></i>
+                @if (Auth::user()) {{ Auth::user()->name}} <b class="caret"></b>
+                @endif
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
@@ -83,7 +85,12 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('logout-form').submit()">
+                        <i class="fa fa-sign-out fa-fw"></i> Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </li>
