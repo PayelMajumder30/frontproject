@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,5 +51,17 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+    public function isUser($role)
+    {
+        if (strtoupper($role) == 'USER') {
+            return true;
+        }
+        return false;
+    }
+
+    public function chatboxes(): HasMany
+    {
+        return $this->hasMany(Chatbox::class, 'user_id');
     }
 }

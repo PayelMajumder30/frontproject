@@ -51,7 +51,13 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{strtoupper($user->role)}}</td>
-                                        <td></td>
+                                        <td>
+                                           
+                                            <a href="{{ route('admin.adminchat', $user->id) }}" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-comment"></i> Chat
+                                            </a>
+                                           
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
