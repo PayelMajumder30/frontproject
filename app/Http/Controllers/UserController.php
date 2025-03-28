@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // public function allUsers() {
-    //     $users = User::where('role', 'User')->orderby('id','DESC')->get();
-
-    //     return view('users.list')->with(['users' => $users]);
-    // }
     public function index($userId){
         $adminId = 4;
         $user = User::findOrFail($userId);
