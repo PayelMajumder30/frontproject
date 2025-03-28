@@ -11,36 +11,45 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
+   
 @endsection
 
 @section('content')
  
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
- 
-   <div class="container">
-    <h3>Chat with {{ $user->name}}</h3>
-    <div class="chat-box">
+
+<div class="container mt-4">
+    <h3 class="text-center">Chat with {{ $user->name}}</h3>
+    <div class="chat-box p-3 rounded" id="chat-box">
         @foreach($chats as $chat)
-            <div class="chat-message {{ $chat->sender == 'admin' ? 'admin' : 'user' }}">
-                <strong>
-                    @if($chat->sender == 'admin')
-                        Admin:
-                    @else 
-                        {{ $user->name}}:  
-                    @endif  
-                </strong> {{ $chat->message }}
+            <div class="chat-message {{ $chat->sender == 'admin' ? 'admin' : 'user'}}">
+                <div class="message-content">
+                    <strong>
+                        @if($chat->sender == 'admin')
+                            Admin:
+                        @else
+                            {{ $user->name}}
+                        @endif
+                    </strong>
+                    <p>{{$chat->message}}</p>
+                    <small class="time">
+                        {{ \Carbon\Carbon::parse($chat->created_at)->format('d M Y, h:i A') }}
+                    </small>
+                </div>
             </div>
         @endforeach
     </div>
-    <form action="{{ route('admin.adminchat.send', $userId) }}" method="POST">
-        @csrf
-        <div class="d-flex align-items-center">
-            <textarea name="message" class="form-control me-2" placeholder="Type your message..." style="height: fit-content; width: 80%"></textarea>
-            <button type="submit" class="btn btn-sm btn-primary">Send</button>
-            <a href="{{route('users')}}" class="btn btn-sm btn-danger">Back</a>
+    <form action="{{ route('admin.adminchat.send', $userId)}}" method="POST" class="mt-3">
+    @csrf
+        <div class="d-flex">
+            <textarea name="message" class="form-control me-2" placeholder="Type your message..." style="height: 50px; resize: none;"></textarea>
+            <button type="submit" class="btn btn-primary adminsend">Send</button>
+            <a href="{{route('users')}}" class="btn btn-danger adminsend">Back</a>
         </div>
     </form>
-   </div>
+</div>
 
 @endsection
 
@@ -55,6 +64,12 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var chatBox = document.getElementById("chat-box");
+            chatBox.scrollTop = chatBox.scrollHeight;
         });
     </script>
     

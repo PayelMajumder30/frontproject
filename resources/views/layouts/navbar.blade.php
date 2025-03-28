@@ -16,60 +16,18 @@
     </ul>
 
     <ul class="nav navbar-right navbar-top-links">
+        <!-- Notification Bell Icon -->
         <li class="dropdown navbar-inverse">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="bellIcon">
+                <i class="fa fa-bell fa-fw"></i>
+                <span id="messageCount" class="badge badge-danger"></span> <!-- Notification count -->
             </a>
-            <ul class="dropdown-menu dropdown-alerts">
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
+            <ul class="dropdown-menu dropdown-alerts" id="messageList">
+                <li class="text-center"><strong>Loading...</strong></li>
             </ul>
         </li>
+
+        <!-- User Profile Dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-user fa-fw"></i>
@@ -97,3 +55,50 @@
     </ul>
     <!-- /.navbar-top-links -->
 </nav>
+
+<script>
+    function loadUnreadMessages() {
+        fetch("{{ route('admin.unreadMessages') }}")
+            .then(response => response.json())
+            .then(data => {
+                let messageList = document.getElementById("messageList");
+                let messageCount = document.getElementById("messageCount");
+
+                messageList.innerHTML = ""; // Clear old data
+                let totalMessages = 0;
+
+                if (data.length === 0) {
+                    messageList.innerHTML = '<li class="text-center"><strong>No new messages</strong></li>';
+                    messageCount.innerText = ""; // Hide badge if no messages
+                } else {
+                    data.forEach(msg => {
+                        totalMessages += msg.message_count;
+                        messageList.innerHTML += `
+                            <li>
+                                <a href="/admin/chat/${msg.user_id}">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i> 
+                                        <strong>${msg.user.name}</strong> <strong>${msg.message_count}</strong> messages
+                                        <span class="pull-right text-muted small">${msg.time_ago}</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>`;                  
+                    });
+                    messageCount.innerText = totalMessages; // Show total messages in the badge
+                }
+            })
+            .catch(error => console.error('Error loading messages:', error));
+    }
+
+    // Load notifications on page load
+    document.addEventListener("DOMContentLoaded", loadUnreadMessages);
+
+    // Auto-refresh notifications every 30 seconds
+    setInterval(loadUnreadMessages, 30000);
+</script>
+
+
+
+
+
