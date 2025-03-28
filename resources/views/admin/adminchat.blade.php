@@ -35,7 +35,7 @@
                     </strong>
                     <p>{{$chat->message}}</p>
                     <small class="time">
-                        {{ \Carbon\Carbon::parse($chat->created_at)->format('d M Y, h:i A') }}
+                        {{ date('d-m-Y h:i A',strtotime($chat->created_at))}}
                     </small>
                 </div>
             </div>
