@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chatbox;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -20,10 +21,10 @@ class AdminController extends Controller
     public function chat($userId){
       $adminId = 4;
 
-      $user = User::findOrFail($userId);
-      $chats = Chatbox::where(function ($query) use ($userId, $adminId){
+      $user     = User::findOrFail($userId);
+      $chats    = Chatbox::where(function ($query) use ($userId, $adminId){
         $query->where('user_id', $userId)
-            ->where('receiver_id', $adminId);
+              ->where('receiver_id', $adminId);
         })->orWhere(function ($query) use ($userId, $adminId){
             $query->where('user_id', $userId)
             ->where('sender', 'admin');
@@ -45,4 +46,21 @@ class AdminController extends Controller
         ]);
         return redirect()->back();
     }
+
+    public function getUnreadMessages(){
+        $messages = Chatbox::select('user_id', DB::raw('COUNT(*) as message_count'), DB::raw('MAX(created_at) as latest_message_time'))
+                    ->where('receiver_id', 4)
+                    ->where('sender', 'user')
+                    ->groupBy('user_id')
+                    ->get();
+
+        // Format messages with "time ago" calculation
+        $messages->transform(function ($msg){
+                $msg->user      = User::find($msg->user_id); // Fetch user details
+                $msg->time_ago  = Carbon::parse($msg->latest_message_time)->diffForHumans();
+                return $msg;
+        });
+        return response()->json($messages);
+    }
+   
 }

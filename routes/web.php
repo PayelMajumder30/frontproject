@@ -15,10 +15,11 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 
 //Admin chat routes
-Route::get('admin', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
+Route::get('admin/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
 // Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
 Route::get('admin/chat/{userId}', [AdminController::class, 'chat'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat'); 
 Route::post('admin/chat/send/{userId}', [AdminController::class, 'sendmessage'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat.send'); 
+Route::get('admin/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');
 
 //User chat routes
 // Route::get('users/chat/{userId}', [UserController::class, 'index'])->middleware(CheckIsUser::class . ':role')->name('user.chat'); 
