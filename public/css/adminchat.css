@@ -20,7 +20,7 @@
 .admin {
     background: #dcf8c6; /* WhatsApp green */
     align-self: flex-end;
-    text-align: right;
+    text-align: left;
     border-bottom-right-radius: 0;
 }
 

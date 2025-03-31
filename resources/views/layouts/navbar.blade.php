@@ -36,7 +36,7 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
-                    <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <a href="{{ route('profile.edit')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
@@ -61,15 +61,15 @@
         fetch("{{ route('admin.unreadMessages') }}")
             .then(response => response.json())
             .then(data => {
-                let messageList = document.getElementById("messageList");
-                let messageCount = document.getElementById("messageCount");
+                let messageList     = document.getElementById("messageList");
+                let messageCount    = document.getElementById("messageCount");
 
                 messageList.innerHTML = ""; // Clear old data
                 let totalMessages = 0;
 
                 if (data.length === 0) {
-                    messageList.innerHTML = '<li class="text-center"><strong>No new messages</strong></li>';
-                    messageCount.innerText = ""; // Hide badge if no messages
+                    messageList.innerHTML   = '<li class="text-center"><strong>No new messages</strong></li>';
+                    messageCount.innerText  = ""; // Hide badge if no messages
                 } else {
                     data.forEach(msg => {
                         totalMessages += msg.message_count;
