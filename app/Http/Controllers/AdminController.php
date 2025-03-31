@@ -55,14 +55,9 @@ class AdminController extends Controller
                     ->get();
 
         // Format messages with "time ago" calculation
-        // $messages->transform(function ($msg){
-        //         $msg->user      = User::find($msg->user_id); // Fetch user details
-        //         $msg->time_ago  = Carbon::parse($msg->latest_message_time)->diffForHumans();
-        //         return $msg;
-        // });
         foreach ($messages as $msg) {
-            $msg->user = User::find($msg->user_id); // Fetch user details
-            $msg->time_ago = Carbon::parse($msg->latest_message_time)->diffForHumans();
+            $msg->user      = User::find($msg->user_id); // Fetch user details
+            $msg->time_ago  = Carbon::parse($msg->latest_message_time)->diffForHumans();
         }
         return response()->json($messages);
     }

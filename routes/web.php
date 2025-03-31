@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminController, UserController, HomeController};
-use App\Http\Controllers\Auth\{LoginController, RegisterController};
+use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController};
+use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
 // Authentication Routes...
@@ -14,6 +14,13 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 
+//Forget password
+
+// Show reset password form
+Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.request');
+// Handle password reset submission
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
 //Admin chat routes
 Route::get('admin/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
 // Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
@@ -22,13 +29,17 @@ Route::post('admin/chat/send/{userId}', [AdminController::class, 'sendmessage'])
 Route::get('admin/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');
 
 //User chat routes
-// Route::get('users/chat/{userId}', [UserController::class, 'index'])->middleware(CheckIsUser::class . ':role')->name('user.chat'); 
-// Route::post('users/chat/send/{userId}', [UserController::class, 'sendmessage'])->middleware(CheckIsUser::class . ':role')->name('user.chat.send'); 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('users/chat/{userId}', [UserController::class, 'index'])->name('users.chat');
     Route::post('users/chat/send/{userId}', [UserController::class, 'sendMessage'])->name('users.chat.send');
 });
+
+//Update Profile
+Route::middleware(['auth'])->group(function (){
+    Route::get('profile',[ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile/update',[ProfileController::class, 'update'])->name('profile.update');
+});
+
 //dashboard page
 Route::get('/',[HomeController::class, 'dashboardview'])->name('dashboard');
 

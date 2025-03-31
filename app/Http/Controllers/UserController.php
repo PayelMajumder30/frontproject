@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     public function index($userId){
-        $adminId = 4;
-        $user = User::findOrFail($userId);
-        $userId  = Auth::id();
+        $adminId    = 4;
+        $user       = User::findOrFail($userId);
+        $userId     = Auth::id();
     
         $chats = Chatbox::where(function ($query) use ($userId, $adminId) {
             $query->where('user_id', $userId)
