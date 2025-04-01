@@ -61,5 +61,10 @@ class AdminController extends Controller
         }
         return response()->json($messages);
     }
+
+    public function detailUsers(){
+        $users = User::where('role', 'User')->orderBy('id', 'ASC')->get();
+        return view('admin.userdetails', compact('users'));
+    }
    
 }

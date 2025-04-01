@@ -43,3 +43,19 @@
 .adminsend {
     margin-top: 10px;
 }
+
+.dummystyle{
+    margin-top: 42px;
+}
+
+
+.card-header {
+    background: #007bff;
+    color: #fff;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+

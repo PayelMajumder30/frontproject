@@ -12,7 +12,7 @@
         <div class="panel panel-default">
 
             <div class="panel-body">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row mb-3">
@@ -61,8 +61,56 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone')}}</label>
+                        <div class="col-md-6">
+                            <input id="phone" type="text" name="phone" class="form-control @error('phone')is-invalid @enderror" value="{{ old('phone')}}">
 
+                            @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address')}}</label>
+                        <div class="col-md-6">
+                            <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror">{{ old('address')}}</textarea>
+                            @error('address')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Gender')}}</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="gender" id="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            @error('gender')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong> </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Profile Image')}}</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control @error('image')is-invalid @enderror" name="image">
+                            @error('image')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                         <div class="col-md-6">
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
 
