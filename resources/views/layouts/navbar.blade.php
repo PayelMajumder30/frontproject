@@ -30,9 +30,12 @@
         <!-- User Profile Dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>
-                @if (Auth::user()) {{ Auth::user()->name}} <b class="caret"></b>
-                @endif
+                @if (Auth::user()->image)
+                    <img src="{{ asset(Auth::user()->image)}}" width="30" height="30" class="rounded-circle" alt="User Profile Image">
+                @else
+                    <i class="fa fa-user fa-fw"></i>
+                @endif 
+                   {{ Auth::user()->name}} <b class="caret"></b> 
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>

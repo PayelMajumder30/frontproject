@@ -21,6 +21,11 @@
                         <i class="fa fa-envelope fa-fw"></i> User Queries
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.userdetails', ['id' => $user->id])}}">
+                        <i class="fa fa-solid fa-info-circle"></i> User Details
+                    </a>
+                </li>
             @endif
             
             <li>

@@ -23,6 +23,10 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 
 //Admin chat routes
 Route::get('admin/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
+//Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
+Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])
+    ->middleware(CheckIsAdmin::class . ':role')
+    ->name('admin.userdetails');
 // Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
 Route::get('admin/chat/{userId}', [AdminController::class, 'chat'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat'); 
 Route::post('admin/chat/send/{userId}', [AdminController::class, 'sendmessage'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat.send'); 

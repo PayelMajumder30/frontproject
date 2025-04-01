@@ -49,10 +49,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name'  => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role'      => ['required', 'string'],
+            'phone'     => ['required', 'string', 'max:20'],
+            'address'   => ['required', 'string', 'max:250'],
+            'gender'    => ['required', 'string', 'in:male,female,other'],
+            'image'     => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+            'password'  => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -64,11 +68,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $imagePath = null;
+        if(isset($data['image']) && $data['image']->isValid()) {
+            $extension  = $data['image']->extension(); 
+            $fileName = time() . rand(10000, 99999) . '.' . $extension;
+            $imagePath = 'uploads/profile_image/'. $fileName;
+
+            $data['image']->move(public_path('uploads/profile_image'), $fileName);
+            $data['image'] = $imagePath;
+        }
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role']
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => bcrypt($data['password']),
+            'role'      => $data['role'],
+            'phone'     => $data['phone'],
+            'address'   => $data['address'],
+            'gender'    => $data['gender'],
+            'image'     => $imagePath
         ]);
     }
 }
