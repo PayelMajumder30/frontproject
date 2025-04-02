@@ -20,7 +20,6 @@
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
-
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -34,7 +33,6 @@
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
-
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -135,6 +133,9 @@
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Register') }}
                             </button>
+                            <a class="btn btn-link" href="{{ route('login') }}">
+                                {{ __('Login if already registered') }}
+                            </a>
                         </div>
                     </div>
                 </form>
@@ -143,3 +144,8 @@
     </div>
 </div>
 @endsection
+<style>
+    .invalid-feedback {
+    color: red !important; /* Ensures error text is red */
+}
+</style>

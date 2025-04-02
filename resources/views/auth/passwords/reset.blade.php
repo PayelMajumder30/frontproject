@@ -12,11 +12,6 @@
     <div class="row">
         <div class="panel panel-default">  
             <div class="panel-body">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success')}}
-                        </div>
-                    @endif
                 
                 <form method="POST" action="{{ route('password.update') }}">
                     @csrf

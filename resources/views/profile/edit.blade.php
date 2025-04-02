@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container header-gap">
         <h2>Update Profile</h2>
 
         @if (session('success'))

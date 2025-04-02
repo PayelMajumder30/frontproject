@@ -44,7 +44,6 @@ class ResetPasswordController extends Controller
             'email'     => 'required|email|exists:users,email',
             'password'  => 'required|min:6|confirmed',
         ]);
-
         //Find the user by email
         $user = User::where('email', $request->email)->first();
         $user->password = bcrypt($request->password);
