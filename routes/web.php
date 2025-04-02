@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController};
+use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
@@ -22,16 +22,28 @@ Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])-
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 //Admin chat routes
-Route::get('admin/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
-//Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
-Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])
-    ->middleware(CheckIsAdmin::class . ':role')
-    ->name('admin.userdetails');
-// Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
-Route::get('admin/chat/{userId}', [AdminController::class, 'chat'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat'); 
-Route::post('admin/chat/send/{userId}', [AdminController::class, 'sendmessage'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat.send'); 
-Route::get('admin/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');
+Route::prefix('admin')->group(function(){
+    Route::get('/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
+    //Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
+    Route::get('/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
+    // Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
+    Route::get('/chat/{userId}', [AdminController::class, 'chat'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat'); 
+    Route::post('/chat/send/{userId}', [AdminController::class, 'sendmessage'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat.send'); 
+    Route::get('/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');
+    Route::get('/user/edit/{id}', [AdminController::class, 'edit'])->middleware(CheckIsAdmin::class . ':role')->name('admin.useredit');
+    Route::post('/user/update/{id}', [AdminController::class, 'update'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userupdate');
+});
 
+//Designation
+Route::prefix('designation')->group(function() {
+    Route::get('/', [DesignationController::class, 'index'])->middleware(CheckIsAdmin::class . ':role')->name('designation.list.all');
+    Route::get('/create', [DesignationController::class, 'create'])->middleware(CheckIsAdmin::class . ':role')->name('designation.create');
+    Route::post('/store', [DesignationController::class, 'store'])->middleware(CheckIsAdmin::class . ':role')->name('designation.store');
+    Route::get('/edit/{id}', [DesignationController::class, 'edit'])->middleware(CheckIsAdmin::class . ':role')->name('designation.edit');
+    Route::post('/update', [DesignationController::class, 'update'])->middleware(CheckIsAdmin::class . ':role')->name('designation.update');
+    Route::get('/status/{id}', [DesignationController::class, 'status'])->middleware(CheckIsAdmin::class . ':role')->name('designation.status'); 
+    Route::get('/delete/{id}', [DesignationController::class, 'delete'])->middleware(CheckIsAdmin::class . ':role')->name('designation.delete');
+});
 //User chat routes
 Route::middleware(['auth'])->group(function () {
     Route::get('users/chat/{userId}', [UserController::class, 'index'])->name('users.chat');

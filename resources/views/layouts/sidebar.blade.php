@@ -22,8 +22,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.userdetails', ['id' => $user->id])}}">
+                    <a href="{{ route('admin.userdetails')}}">
                         <i class="fa fa-solid fa-info-circle"></i> User Details
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('designation.list.all')}}">
+                        <i class="fa fa-solid fa-award"></i> Designation
                     </a>
                 </li>
             @endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Designation;
 use App\Models\Chatbox;
 use Illuminate\Support\Facades\DB;
 
@@ -62,9 +63,46 @@ class AdminController extends Controller
         return response()->json($messages);
     }
 
-    public function detailUsers(){
-        $users = User::where('role', 'User')->orderBy('id', 'ASC')->get();
+    public function detailUsers(Request $request){
+        //dd($request->all());
+        $keyword    = $request->input('keyword');
+        $users      = User::where('role', 'User')
+            ->when($keyword, function($query) use ($keyword) {
+            $query->where('name', 'like', '%'. $keyword . '%')
+                ->orWhere('email', 'like', '%'. $keyword . '%')
+                ->orWhere('phone', 'like', '%'. $keyword . '%')
+                ->orWhere('address', 'like', '%'. $keyword . '%')
+                ->orWhere('designation_id ', 'like', '%'. $keyword . '%');
+        })->orderBy('id', 'ASC')->get();
         return view('admin.userdetails', compact('users'));
+    }
+
+    public function edit($id){
+        $user = User::findOrFail($id);
+        $designations = Designation::where('status', '1')->get();
+        return view('admin.edituser', compact('user', 'designations'));
+    }
+    public function update(Request $request, $id){
+        $request->validate([
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|email|unique:users,email,' . $id,
+            'phone'         => 'nullable|string|max:20',
+            'gender'        => 'nullable|string',
+            'address'       => 'nullable|string|max:255',
+            'designation_id'=> 'nullable|exists:designations,id'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'designation_id' => $request->designation_id
+        ]);
+
+        return redirect()->route('admin.userdetails')->with('success', 'User updated successfully!');
     }
    
 }

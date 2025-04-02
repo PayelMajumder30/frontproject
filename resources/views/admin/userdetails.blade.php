@@ -13,8 +13,10 @@
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
    
 @endsection
+
 
 @section('content')
  
@@ -23,11 +25,28 @@
  <div class="container dummystyle">
     <h2>User Details</h2>
 
+    {{-- Search Form --}}
+    <form method="GET" action="{{ route('admin.userdetails')}}" class="d-flex justify-content-end">
+        <div class="form-group ml-2">
+            <input type="search" class="form-control form-control-sm" name="keyword" id="keyword" value="{{ request()->input('keyword') }}" placeholder="Search something...">
+        </div>
+        <div class="form-group ml-2">
+            <div class="btn-group">
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-filter"></i>
+                </button>
+                <a href="{{ url()->current() }}" class="btn btn-sm btn-light" data-toggle="tooltip" title="Clear filter">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+    </form>
+    
     <div class="row">
         @foreach($users as $user)
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header head_detail">
                     <h4>{{ $user->name }}'s Profile</h4>
                 </div>
                 <div class="card-body">
@@ -40,12 +59,15 @@
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Phone:</strong> {{ $user->phone ?? 'N/A' }}</p>
                             <p><strong>Gender:</strong> {{ ucfirst($user->gender) ?? 'N/A' }}</p>
+                            <p><strong>Phone:</strong> {{ $user->phone ?? 'N/A' }}</p>
+                            <p><strong>Designation:</strong> {{ $user->designation ? $user->designation->title : 'N/A' }}</p>
                             <p><strong>Address:</strong> {{ $user->address ?? 'N/A' }}</p>
                         </div>
                     </div>
                   
                         <a href="{{ route('admin.adminchat', $user->id) }}" class="btn btn-primary w-50 me-2">Chat with User</a>
                         {{-- <a href="" class="btn btn-secondary w-50">View Profile</a> --}}
+                        <a href="{{ route('admin.useredit', $user->id)}}" class="btn btn-primary w-50 me-2">Edit User Details</a>
                
                 </div>
             </div>

@@ -52,7 +52,7 @@ class LoginController extends Controller
         if (Auth::guard()->attempt($credentials)) {
             return redirect()->intended('/');
         }
-
+        
         return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
     }
 

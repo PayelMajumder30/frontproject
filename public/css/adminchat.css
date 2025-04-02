@@ -48,14 +48,29 @@
     margin-top: 42px;
 }
 
+.header-gap{
+    margin-top: 42px;
+}
 
-.card-header {
+.head_detail {
     background: #007bff;
     color: #fff;
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
+.justify-content-end {
+    -ms-flex-pack: end !important;
+    justify-content: flex-end !important
+}
+
+
 
 
 
