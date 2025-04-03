@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController};
+use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController, TeamController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');
     Route::get('/user/edit/{id}', [AdminController::class, 'edit'])->middleware(CheckIsAdmin::class . ':role')->name('admin.useredit');
     Route::post('/user/update/{id}', [AdminController::class, 'update'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userupdate');
+    Route::post('admin/make-team-leader/{id}', [AdminController::class, 'assignTeamLeader'])->middleware(CheckIsAdmin::class . ':role')->name('admin.makeTeamleader');
 });
 
 //Designation
@@ -52,8 +53,15 @@ Route::middleware(['auth'])->group(function () {
 
 //Update Profile
 Route::middleware(['auth'])->group(function (){
-    Route::get('profile',[ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('profile/',[ProfileController::class, 'view'])->name('profile.view');
+    Route::get('profile/edit',[ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/update',[ProfileController::class, 'update'])->name('profile.update');
+});
+
+//create team member
+Route::middleware(['auth'])->group(function (){
+    Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
+    Route::post('/team/store', [TeamController::class, 'store'])->name('team.store');
 });
 
 //dashboard page

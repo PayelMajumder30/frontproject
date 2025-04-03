@@ -104,5 +104,15 @@ class AdminController extends Controller
 
         return redirect()->route('admin.userdetails')->with('success', 'User updated successfully!');
     }
+
+    public function assignTeamLeader($id){
+        
+        User::where('is_team_leader', 1)->update(['is_team_leader' => 0]);
+        $user = User::findOrFail($id);
+        $user->is_team_leader = 1;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User assigned as Team Leader successfully.');
+    }
    
 }

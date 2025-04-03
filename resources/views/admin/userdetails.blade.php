@@ -55,7 +55,7 @@
                             <img src="{{ asset($user->image ?? 'default-profile.png') }}" class="img-fluid img-circle" alt="Profile Image" height="130" width="130">
                         </div>
                         <div class="col-md-8">
-                            <p><strong>Name:</strong> {{ $user->name }}</p>
+                            <p><strong>Name:</strong> {{ ucfirst($user->name) }}</p>
                             <p><strong>Email:</strong> {{ $user->email }}</p>
                             <p><strong>Phone:</strong> {{ $user->phone ?? 'N/A' }}</p>
                             <p><strong>Gender:</strong> {{ ucfirst($user->gender) ?? 'N/A' }}</p>

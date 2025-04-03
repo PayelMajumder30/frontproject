@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     //
+    public function view(){
+        return view('profile.view');
+    }
+
     public function edit(){
         return view('profile.edit', ['user' => Auth::user()]);
     }

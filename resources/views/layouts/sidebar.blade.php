@@ -18,7 +18,7 @@
             @if(auth()->check() && auth()->user()->role === 'admin')
                 <li>
                     <a href="{{ route('users') }}">
-                        <i class="fa fa-envelope fa-fw"></i> User Queries
+                        <i class="fa fa-envelope fa-fw"></i> User List
                     </a>
                 </li>
                 <li>
@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <a href="{{ route('designation.list.all')}}">
-                        <i class="fa fa-solid fa-award"></i> Designation
+                        <i class="fa fa-briefcase"></i> Designation
                     </a>
                 </li>
             @endif
@@ -78,6 +78,14 @@
             @if(auth()->check() && auth()->user()->role === 'user')
                 <li>
                     <a href="{{route('users.chat', ['userId' => auth()->id()])}}" ><i class="fa fa-envelope fa-fw"></i> Chat with Admin</a>
+                </li>
+            @endif
+
+            @if(auth()->check() && auth()->user()->is_team_leader)
+                <li>
+                    <a href="{{ route('team.create')}}">
+                        <i class="fa fa-users"></i> Create a Team
+                    </a>
                 </li>
             @endif
 

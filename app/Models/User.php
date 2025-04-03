@@ -28,7 +28,8 @@ class User extends Authenticatable
         'address',
         'phone',
         'gender',
-        'designation_id'
+        'designation_id',
+        'is_team_leader'
     ];
 
     /**
