@@ -11,13 +11,14 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
 @endsection
 
 @section('content')
  
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
  
-    <div class="container-fluid">
+    <div class="container dummystyle">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">User List</h1>
@@ -51,12 +52,18 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{strtoupper($user->role)}}</td>
-                                        <td>
-                                           
-                                            <a href="{{ route('admin.adminchat', $user->id) }}" class="btn btn-primary btn-sm">
+                                        <td>  
+                                            <a href="{{ route('admin.adminchat', $user->id)}}" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-comment"></i> Chat
-                                            </a>
-                                           
+                                            </a> 
+                                            
+                                            <form action="{{ route('admin.makeTeamleader', $user->id)}}" method="post" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm {{ $user->is_team_leader ? 'btn-success' : 'btn-warning'}}">
+                                                    <i class="fa {{ $user->is_team_leader ? 'fa-user-check' : 'fa-user-plus'}}"></i>
+                                                    {{ $user->is_team_leader ? 'Change Team Leader' : 'Make Team Leader'}}
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

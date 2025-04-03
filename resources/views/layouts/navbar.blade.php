@@ -40,7 +40,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li>
-                        <a href="{{ route('profile.edit')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <a href="{{ route('profile.view')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>

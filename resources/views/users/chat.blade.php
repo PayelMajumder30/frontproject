@@ -20,7 +20,7 @@
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
  
 <div class="container mt-4">
-    <h3 class="text-center">Chat with Admin</h3>
+    <h3 class="text-center heading">Chat with Admin</h3>
     <div class="chat-box p-3 border-rounded" id="chat-box">
         @foreach($chats as $chat)
             <div class="chat-message {{ $chat->sender == 'admin' ? 'admin' : 'user' }}">

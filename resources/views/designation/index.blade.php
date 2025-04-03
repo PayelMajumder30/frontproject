@@ -31,7 +31,7 @@
                     <div class="card-header"> 
                         <div class="row mb-3">
                             <div class="col-md-12 text-right">
-                                <a href="{{ route('designation.create')}}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Create</a>
+                                <a href="{{ route('designation.create')}}" class="btn btn-sm btn-primary" style="margin-bottom: 10px;"> <i class="fa fa-plus"></i> Create</a>
                             </div>
                         </div>
                         
@@ -50,7 +50,7 @@
                                                     <i class="fa fa-filter"></i>
                                                 </button>
                                                 <a href="{{ url()->current() }}" class="btn btn-sm btn-light" data-toggle="tooltip" title="Clear filter">
-                                                    <i class="fa fa-times"></i>
+                                                    <i class="fa fa-times fa-border"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
                                 @forelse ($data as $index => $item)
                                     <tr class="text-left align-middle">
                                         <td>{{ $index+1 }}</td>
-                                        <td>{{ $item->title }}</td>
+                                        <td>{{ ucfirst($item->title) }}</td>
                                         <td> 
                                             <div class="custom-control custom-switch mt-1" data-toggle="tooltip" title="Toggle status">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch{{$item->id}}" {{ ($item->status == 1) ? 'checked' : '' }} onchange="statusToggle('{{ route('designation.status', $item->id) }}')">
@@ -86,8 +86,8 @@
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="{{route('designation.delete', $item->id)}}"
-                                                    class="btn btn-sm btn-dark"
-                                                    onclick="return confirm('Are you sure you want to delete this offer?')"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this designation?')"
                                                     data-toggle="tooltip"
                                                     title="Delete">
                                                     <i class="fa fa-trash"></i>

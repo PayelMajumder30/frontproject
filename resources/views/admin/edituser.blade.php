@@ -19,7 +19,7 @@
 @section('content')
 
 <div class="container dummystyle">
-    <div class="row">
+    <div class="row ">
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
@@ -50,6 +50,7 @@
                                 <option value="" {{ !$user->gender ? 'selected' : '' }}>Select Gender</option>
                                 <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
                                 <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
+                                <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
                         </div>
 

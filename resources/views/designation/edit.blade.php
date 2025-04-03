@@ -21,8 +21,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row mb-3">
-                        <div class="col-md-12 text-right">
+                    <div class="row mb-4">
+                        <div class="col-md-12 text-right ">
                             <a href="{{route('designation.list.all')}}" class="btn btn-sm btn-primary"><i class="fa fa-chevron-left"></i>Back</a>
 
                         </div>

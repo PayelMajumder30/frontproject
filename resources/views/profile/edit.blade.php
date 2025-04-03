@@ -71,8 +71,8 @@
                 <label>Confirm Password:</label>
                 <input type="password" name="password_confirmation" class="form-control">
             </div>
-
             <button type="submit" class="btn btn-primary">Update Profile</button>
+            <a href="{{route('profile.view')}}" class="btn btn-sm btn-danger">Back</a>
         </form>
     </div>
 
