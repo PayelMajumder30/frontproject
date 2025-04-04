@@ -29,28 +29,33 @@
 
         <!-- User Profile Dropdown -->
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>
-                @if (Auth::user()) {{ Auth::user()->name}} <b class="caret"></b>
-                @endif
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li>
-                    <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('logout-form').submit()">
-                        <i class="fa fa-sign-out fa-fw"></i> Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
+            @if(Auth::check()) <!-- Ensure a user is authenticated -->
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    @if (Auth::user()->image)
+                        <img src="{{ asset(Auth::user()->image)}}" width="30" height="30" class="rounded-circle" alt="User Profile Image">
+                    @else
+                        <i class="fa fa-user fa-fw"></i>
+                    @endif 
+                    {{ Auth::user()->name}} <b class="caret"></b> 
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <a href="{{ route('profile.view')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('logout-form').submit()">
+                            <i class="fa fa-sign-out fa-fw"></i> Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            @endif
         </li>
     </ul>
     <!-- /.navbar-top-links -->
@@ -61,15 +66,15 @@
         fetch("{{ route('admin.unreadMessages') }}")
             .then(response => response.json())
             .then(data => {
-                let messageList = document.getElementById("messageList");
-                let messageCount = document.getElementById("messageCount");
+                let messageList     = document.getElementById("messageList");
+                let messageCount    = document.getElementById("messageCount");
 
                 messageList.innerHTML = ""; // Clear old data
                 let totalMessages = 0;
 
                 if (data.length === 0) {
-                    messageList.innerHTML = '<li class="text-center"><strong>No new messages</strong></li>';
-                    messageCount.innerText = ""; // Hide badge if no messages
+                    messageList.innerHTML   = '<li class="text-center"><strong>No new messages</strong></li>';
+                    messageCount.innerText  = ""; // Hide badge if no messages
                 } else {
                     data.forEach(msg => {
                         totalMessages += msg.message_count;

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Designation;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,6 +24,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'image',
+        'address',
+        'phone',
+        'gender',
+        'designation_id',
+        'is_team_leader'
     ];
 
     /**
@@ -63,5 +70,9 @@ class User extends Authenticatable
     public function chatboxes(): HasMany
     {
         return $this->hasMany(Chatbox::class, 'user_id');
+    }
+
+    public function designation(){
+        return $this->belongsTo(Designation::class, 'designation_id', 'id');
     }
 }

@@ -20,7 +20,7 @@
 .admin {
     background: #dcf8c6; /* WhatsApp green */
     align-self: flex-end;
-    text-align: right;
+    text-align: left;
     border-bottom-right-radius: 0;
 }
 
@@ -43,3 +43,34 @@
 .adminsend {
     margin-top: 10px;
 }
+
+.dummystyle{
+    margin-top: 35px;
+}
+
+.header-gap{
+    margin-top: 42px;
+}
+
+.head_detail {
+    background: #007bff;
+    color: #fff;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
+.justify-content-end {
+    -ms-flex-pack: end !important;
+    justify-content: flex-end !important
+}
+
+
+
+
+

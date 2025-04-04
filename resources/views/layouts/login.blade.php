@@ -24,13 +24,18 @@
     <body>
 
         <div id="wrapper">
-
             <div id="page-wrapper">
-                @yield('content')
-                <!-- /.container-fluid -->
+                <div class="container">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success')}}
+                        </div>
+                    @endif
+                    @yield('content')
+                    <!-- /.container-fluid -->
+                </div>
             </div>
             <!-- /#page-wrapper -->
-
         </div>
         <!-- /#wrapper -->
 
