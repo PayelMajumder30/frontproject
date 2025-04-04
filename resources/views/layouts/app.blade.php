@@ -19,6 +19,10 @@
 
         <!-- Custom Fonts -->
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- Toastr CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     </head>
 
     <body>
@@ -31,11 +35,11 @@
 
             <div id="page-wrapper">
                 <div class="container dummystyle">
-                    @if(session('success'))
+                    {{-- @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success')}}
                         </div>
-                    @endif
+                    @endif --}}
                     @yield('content')
                     <!-- /.container-fluid -->
                 </div>
@@ -57,6 +61,19 @@
         
         <!-- Custom Theme JavaScript -->
         <script src="{{ asset('js/startmin.js')}}"></script>
+
+        <!-- jQuery and Toastr JS -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <script>
+            @if(session('success'))
+                $(document).ready(function() {
+                    toastr.success("{{ session('success') }}");
+                });
+            @endif
+        </script>
+
     </body>
 
 </html>

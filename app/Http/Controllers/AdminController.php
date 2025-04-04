@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Designation;
-use App\Models\Chatbox;
+use App\Models\{Team, Chatbox, Designation, User};
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function allUsers() {
-         $users = User::where('role', 'User')->orderby('id','ASC')->get();
+         $users = User::with('teams')->where('role', 'User')->orderby('id','ASC')->get();
+         $teams = Team::orderby('team_name', 'ASC')->get();
         // $users = User::whereHas('chatboxes', function ($query) {
         //     $query->where('receiver_id', 4); // Assuming admin ID is 4
         // })->get();
 
-        return view('admin.list')->with(['users' => $users]);
+        return view('admin.list')->with(['users' => $users, 'teams' => $teams]);
     }
 
     public function chat($userId){
@@ -72,7 +71,9 @@ class AdminController extends Controller
                 ->orWhere('email', 'like', '%'. $keyword . '%')
                 ->orWhere('phone', 'like', '%'. $keyword . '%')
                 ->orWhere('address', 'like', '%'. $keyword . '%')
-                ->orWhere('designation_id ', 'like', '%'. $keyword . '%');
+                ->orWhereHas('designation', function($query) use ($keyword) {
+                    $query->where('title', 'like', '%'. $keyword . '%');
+                });
         })->orderBy('id', 'ASC')->get();
         return view('admin.userdetails', compact('users'));
     }
@@ -107,12 +108,14 @@ class AdminController extends Controller
 
     public function assignTeamLeader($id){
         
-        User::where('is_team_leader', 1)->update(['is_team_leader' => 0]);
+        //User::where('is_team_leader', 1)->update(['is_team_leader' => 0]);
         $user = User::findOrFail($id);
-        $user->is_team_leader = 1;
+        //$user->is_team_leader = 1;
+        $user->is_team_leader = !$user->is_team_leader;
         $user->save();
 
-        return redirect()->back()->with('success', 'User assigned as Team Leader successfully.');
+        $message = $user->is_team_leader ? "{$user->name} is no longer a Team Leader." :"{$user->name} has been assigned as Team Leader successfully.";
+        return redirect()->back()->with('success', $message);
     }
    
 }

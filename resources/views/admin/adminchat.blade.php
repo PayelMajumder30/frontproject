@@ -13,6 +13,7 @@
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
+
    
 @endsection
 
@@ -44,9 +45,9 @@
     <form action="{{ route('admin.adminchat.send', $userId)}}" method="POST" class="mt-3">
     @csrf
         <div class="d-flex align-items-center">
-            <textarea name="message" class="form-control me-2 adminsend" placeholder="Type your message..." style="height: 50px; resize: none;"></textarea>
+            <textarea name="message" class="form-control me-2 adminsend shrink-textarea" placeholder="Type your message..."></textarea>
             <div class="btn-group">
-                <button type="submit" class="btn btn-sm btn-primary adminsend">Send</button>
+                <button type="submit" class="btn btn-sm btn-success adminsend">Send</button>
                 <a href="{{route('users')}}" class="btn btn-sm btn-danger adminsend">Back</a>
             </div>
         </div>

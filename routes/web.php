@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function (){
 Route::middleware(['auth'])->group(function (){
     Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
     Route::post('/team/store', [TeamController::class, 'store'])->name('team.store');
+    Route::get('/team/view', [TeamController::class, 'view'])->name('team.view');
 });
 
 //dashboard page

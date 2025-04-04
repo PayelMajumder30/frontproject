@@ -33,7 +33,11 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>Name</th>
-                            <td>{{ auth()->user()->name }}</td>
+                            <td>{{ auth()->user()->name }}
+                                @if(auth()->user()->is_team_leader)
+                                    <span class="badge bg-success">Team Leader</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th>Email</th>

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Team;
-use App\Models\TeamMember;
+use App\Models\{TeamMember, Team, User};
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -13,8 +12,8 @@ class TeamController extends Controller
     //
 
     public function create(){
-        $users = User::where('is_team_leader', 0)
-                    ->where('id', '!=', 4)
+        $users = User::where('role', 'user')
+                    ->where('id', '!=', auth()->id())
                     ->get();
         return view('team.create', compact('users'));
     }
@@ -29,10 +28,10 @@ class TeamController extends Controller
         $teamLeaderId = auth()->id();
     
         // Check if a team already exists for this leader
-        $existingTeam = Team::where('team_leader_id', $teamLeaderId)->first();
-        if ($existingTeam) {
-            return redirect()->back()->with('error', 'Already have a team');
-        }
+        // $existingTeam = Team::where('team_leader_id', $teamLeaderId)->first();
+        // if ($existingTeam) {
+        //     return redirect()->back()->with('error', 'Already have a team');
+        // }
         
         DB::beginTransaction();
         try {
@@ -59,5 +58,15 @@ class TeamController extends Controller
             dd($e->getMessage());
             return redirect()->back()->with('failure', 'Failed to delete team member. Please try again.');
         }
+    }
+
+    public function view(){
+        $teamLeaderId = auth()->id();
+
+        $teams = Team::where('team_leader_id', $teamLeaderId)
+                ->with('members')
+                ->get();
+
+        return view('team.view', compact('teams'));
     }
 }

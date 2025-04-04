@@ -11,14 +11,14 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}"> --}}
 @endsection
 
 @section('content')
  
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
  
-    <div class="container dummystyle">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">User List</h1>
@@ -42,6 +42,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        <th>Team Leader</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,13 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{strtoupper($user->role)}}</td>
+                                        <td>
+                                            <select id="set_team_leader" name="set_team_leader" onchange="setTeamLead()">
+                                                @foreach($teams as $team)
+                                                <option value="{{$team->id}}">{{$team->team_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
                                         <td>  
                                             <a href="{{ route('admin.adminchat', $user->id)}}" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-comment"></i> Chat
@@ -61,7 +69,7 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm {{ $user->is_team_leader ? 'btn-success' : 'btn-warning'}}">
                                                     <i class="fa {{ $user->is_team_leader ? 'fa-user-check' : 'fa-user-plus'}}"></i>
-                                                    {{ $user->is_team_leader ? 'Change Team Leader' : 'Make Team Leader'}}
+                                                    {{ $user->is_team_leader ? 'Change to Team Leader' : 'Assigned as Team Leader'}}
                                                 </button>
                                             </form>
                                         </td>
@@ -95,6 +103,10 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+            setTeamLead() {
+                var slectedTeamid = $('#set_team_leader').val();
+                alert(slectedTeamid);
+            }
         });
     </script>
     

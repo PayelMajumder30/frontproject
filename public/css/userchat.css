@@ -43,6 +43,13 @@
 
 .usersend {
     margin-top: 10px;
+    
+}
+
+.shrink-textarea {
+    width: 1070px; 
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .header-gap{
