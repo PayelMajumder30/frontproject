@@ -11,14 +11,14 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/adminchat.css') }}"> --}}
 @endsection
 
 @section('content')
  
  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
  
-    <div class="container dummystyle">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">User List</h1>
@@ -69,7 +69,7 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm {{ $user->is_team_leader ? 'btn-success' : 'btn-warning'}}">
                                                     <i class="fa {{ $user->is_team_leader ? 'fa-user-check' : 'fa-user-plus'}}"></i>
-                                                    {{ $user->is_team_leader ? 'Change Team Leader' : 'Make Team Leader'}}
+                                                    {{ $user->is_team_leader ? 'Change to Team Leader' : 'Assigned as Team Leader'}}
                                                 </button>
                                             </form>
                                         </td>

@@ -89,6 +89,10 @@
                 </li>
             @endif
 
+            @if(auth()->user()->is_team_leader)
+                <li><a href="{{ route('team.view')}}">My Teams</a></li>
+            @endif
+
             <li>
                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

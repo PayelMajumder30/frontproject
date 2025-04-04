@@ -48,10 +48,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $adminExists = User::where('role', 'admin')->exists();
         return Validator::make($data, [
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role'      => ['required', 'string'],
+            'role'      => ['required', 'string', function($attribute, $value, $fail) use ($adminExists) {
+                                if ($value === 'admin' && $adminExists) {
+                                    $fail('Admin Registration is not allowed. Only one admin can exist');
+                                }
+                            }],
             'phone'     => ['required', 'string', 'max:20'],
             'address'   => ['required', 'string', 'max:250'],
             'gender'    => ['required', 'string', 'in:male,female,other'],
@@ -68,6 +73,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        if($data['role'] === 'admin' && User::where('role', 'admin')->exists()){
+            abort(403, 'Admin registration is not allowed, Only one admin exists');
+        }
+        
         $imagePath = null;
         if(isset($data['image']) && $data['image']->isValid()) {
             $extension  = $data['image']->extension(); 

@@ -42,6 +42,16 @@
 }
 .adminsend {
     margin-top: 10px;
+    height: 45px;
+    font-size: 12px;
+}
+
+.shrink-textarea {
+    height: 50px;
+    width: 1036px;
+    resize: none;
+    padding: 5px;
+    font-size: 14px;
 }
 
 .dummystyle{

@@ -41,8 +41,8 @@
     <form action="{{route('users.chat.send', ['userId' => auth()->id()])}}" method="POST">
         @csrf
         <div class="d-flex">
-            <textarea name="message" class="form-control me-2 usersend" placeholder="Type your message..." style="height: 50px; resize: none;"></textarea>
-            <button type="submit" class="btn btn-sm btn-primary usersend">Send</button>
+            <textarea name="message" class="form-control me-2 usersend shrink-textarea" placeholder="Type your message..."></textarea>
+            <button type="submit" class="btn btn-sm btn-success usersend">Send</button>
         </div>
     </form>
 </div>

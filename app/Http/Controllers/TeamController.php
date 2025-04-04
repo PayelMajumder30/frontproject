@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Team;
-use App\Models\TeamMember;
+use App\Models\{TeamMember, Team, User};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -14,7 +12,8 @@ class TeamController extends Controller
     //
 
     public function create(){
-        $users = User::where('role', '=', 'user')
+        $users = User::where('role', 'user')
+                    ->where('id', '!=', auth()->id())
                     ->get();
         return view('team.create', compact('users'));
     }
@@ -59,5 +58,15 @@ class TeamController extends Controller
             dd($e->getMessage());
             return redirect()->back()->with('failure', 'Failed to delete team member. Please try again.');
         }
+    }
+
+    public function view(){
+        $teamLeaderId = auth()->id();
+
+        $teams = Team::where('team_leader_id', $teamLeaderId)
+                ->with('members')
+                ->get();
+
+        return view('team.view', compact('teams'));
     }
 }
