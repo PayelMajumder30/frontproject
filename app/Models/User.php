@@ -67,6 +67,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function teams(): HasMany
+    {
+        return $this->hasMany(Team::class, 'team_leader_id');
+    }
+
     public function chatboxes(): HasMany
     {
         return $this->hasMany(Chatbox::class, 'user_id');

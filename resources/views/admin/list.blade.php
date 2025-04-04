@@ -42,6 +42,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        <th>Team Leader</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,13 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{strtoupper($user->role)}}</td>
+                                        <td>
+                                            <select id="set_team_leader" name="set_team_leader" onchange="setTeamLead()">
+                                                @foreach($teams as $team)
+                                                <option value="{{$team->id}}">{{$team->team_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
                                         <td>  
                                             <a href="{{ route('admin.adminchat', $user->id)}}" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-comment"></i> Chat
@@ -95,6 +103,10 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+            setTeamLead() {
+                var slectedTeamid = $('#set_team_leader').val();
+                alert(slectedTeamid);
+            }
         });
     </script>
     

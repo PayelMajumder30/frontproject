@@ -5,18 +5,19 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Designation;
-use App\Models\Chatbox;
+use App\Models\{Team, Chatbox};
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function allUsers() {
-         $users = User::where('role', 'User')->orderby('id','ASC')->get();
+         $users = User::with('teams')->where('role', 'User')->orderby('id','ASC')->get();
+         $teams = Team::orderby('team_name', 'ASC')->get();
         // $users = User::whereHas('chatboxes', function ($query) {
         //     $query->where('receiver_id', 4); // Assuming admin ID is 4
         // })->get();
 
-        return view('admin.list')->with(['users' => $users]);
+        return view('admin.list')->with(['users' => $users, 'teams' => $teams]);
     }
 
     public function chat($userId){

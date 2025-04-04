@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Team;
 use App\Models\TeamMember;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -13,8 +14,7 @@ class TeamController extends Controller
     //
 
     public function create(){
-        $users = User::where('is_team_leader', 0)
-                    ->where('id', '!=', 4)
+        $users = User::where('role', '=', 'user')
                     ->get();
         return view('team.create', compact('users'));
     }
@@ -29,10 +29,10 @@ class TeamController extends Controller
         $teamLeaderId = auth()->id();
     
         // Check if a team already exists for this leader
-        $existingTeam = Team::where('team_leader_id', $teamLeaderId)->first();
-        if ($existingTeam) {
-            return redirect()->back()->with('error', 'Already have a team');
-        }
+        // $existingTeam = Team::where('team_leader_id', $teamLeaderId)->first();
+        // if ($existingTeam) {
+        //     return redirect()->back()->with('error', 'Already have a team');
+        // }
         
         DB::beginTransaction();
         try {
