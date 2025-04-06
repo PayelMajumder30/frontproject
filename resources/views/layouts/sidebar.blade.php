@@ -89,7 +89,7 @@
                 </li>
             @endif
 
-            @if(auth()->user()->is_team_leader)
+            @if(auth()->check() && auth()->user()->is_team_leader)
                 <li><a href="{{ route('team.view')}}">My Teams</a></li>
             @endif
 

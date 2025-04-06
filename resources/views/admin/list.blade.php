@@ -69,7 +69,7 @@
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm {{ $user->is_team_leader ? 'btn-success' : 'btn-warning'}}">
                                                     <i class="fa {{ $user->is_team_leader ? 'fa-user-check' : 'fa-user-plus'}}"></i>
-                                                    {{ $user->is_team_leader ? 'Change to Team Leader' : 'Assigned as Team Leader'}}
+                                                    {{ $user->is_team_leader ? 'Assigned as Team Leader' : 'Change to Team Leader' }}
                                                 </button>
                                             </form>
                                         </td>
