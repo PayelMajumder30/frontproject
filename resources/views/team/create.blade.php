@@ -7,12 +7,13 @@
 
     
     <!-- DataTables CSS -->
-    <link href="{{ asset('css/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet"> --}}
 
     <!-- DataTables Responsive CSS -->
-    <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/dataTables/dataTables.responsive.css')}}" rel="stylesheet"> --}}
 
     <link rel="stylesheet" href="{{ asset('css/userchat.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
 @endsection
 
 @section('content')
@@ -29,7 +30,7 @@
         </div>
         <div class="form-group">
             <label>Select Members:</label>
-            <select name="members[]" id="" class="form-control" multiple>
+            <select name="members[]" id="select_members" class="form-control" multiple="multiple">
                 @foreach($users as $user)
                     <option value="{{ $user->id}}">{{ $user->name }}</option>
                 @endforeach
@@ -44,15 +45,18 @@
 @section('script')
 
     <!-- DataTables JavaScript -->
-    <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('js/dataTables/dataTables.bootstrap.min.js')}}"></script>
+    {{-- <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('js/dataTables/dataTables.bootstrap.min.js')}}"></script> --}}
+    <script src="{{ asset('js/select2.min.js')}}"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#dataTables-example').DataTable({
-                responsive: true
+        $(document).ready(function() {
+            $('#select_members').select2({
+                placeholder: "Select member",
+                allowClear: true
             });
         });
+    
     </script>
     
 @endsection

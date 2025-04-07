@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController, TeamController};
+use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController, 
+    TeamController, ProductController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
@@ -63,6 +64,13 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
     Route::post('/team/store', [TeamController::class, 'store'])->name('team.store');
     Route::get('/team/view', [TeamController::class, 'view'])->name('team.view');
+});
+
+//products
+Route::middleware(['auth'])->group(function (){
+    Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('product.view');
+    Route::get('/product/getProductPrice/{id}', [ProductController::class, 'getProductPrice'])->name('product.price');
+    Route::post('/product/invoice', [ProductController::class, 'pdfGenerate'])->name('product.invoice');
 });
 
 //dashboard page

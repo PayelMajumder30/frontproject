@@ -1,3 +1,4 @@
+
 <aside class="sidebar navbar-default" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
@@ -89,11 +90,17 @@
                 </li>
             @endif
 
-            @if(auth()->user()->is_team_leader)
+            @if(auth()->check() && auth()->user()->is_team_leader)
                 <li><a href="{{ route('team.view')}}">My Teams</a></li>
             @endif
 
-            <li>
+            @if(auth()->check() && auth()->user()->role === 'user')
+                <li>
+                    <a href="{{route('product.view', auth()->user()->id)}}" ><i class="fa fa-shopping-cart"></i> Products </a>
+                </li>
+            @endif
+
+            {{-- <li>
                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
@@ -122,7 +129,7 @@
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
-            </li>
+            </li> --}}
             <li>
                 <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

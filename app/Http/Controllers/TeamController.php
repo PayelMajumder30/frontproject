@@ -14,6 +14,10 @@ class TeamController extends Controller
     public function create(){
         $users = User::where('role', 'user')
                     ->where('id', '!=', auth()->id())
+                    ->whereNotIn('id', function($query) {
+                        $query->select('user_id')
+                              ->from('team_members');
+                    })
                     ->get();
         return view('team.create', compact('users'));
     }

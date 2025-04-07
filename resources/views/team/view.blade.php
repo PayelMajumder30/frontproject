@@ -22,7 +22,7 @@
  <div class="container">
     <h3>My Teams</h3>
 
-    @foreach($teams as $team)
+    {{-- @foreach($teams as $team)
         <div class="card mt-3">
             <div class="card-header">
                 <strong>{{ $team->team_name }}</strong> (Team Leader)
@@ -36,7 +36,33 @@
                 </ul>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Team Name</th>
+                <th>Team Members</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($teams as $index =>  $team)
+            <tr>
+                <td>{{$index+1}}</td>
+                <td>{{ $team->team_name}}</td>
+                <td>
+                    <ul class="mb-0">
+                        @foreach($team->members as $member)
+                            <li>{{ $member->user->name}} ({{ $member->user->email}})</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+       
+    </table>
 
  @endsection
 
