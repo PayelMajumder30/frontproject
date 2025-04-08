@@ -11,4 +11,8 @@ class Product extends Model
 
     protected $table    = "products";
     protected $fillable = ['name', 'proce'];
+
+    public function invoiceItem(){
+        return $this->hasMany(InvoiceItem::class, 'product_id');
+    }
 }

@@ -80,4 +80,8 @@ class User extends Authenticatable
     public function designation(){
         return $this->belongsTo(Designation::class, 'designation_id', 'id');
     }
+
+    public function invoice(){
+        return $this->hasMany(Invoice::class, 'user_id');
+    }
 }
