@@ -130,4 +130,13 @@ hr {
     .form-control:focus {
         outline: none !important;
     }
+
+    table {
+        border-collapse: collapse !important;
+    }
+
+    th, td {
+        border: 1px solid #000 !important;
+        text-align: center;
+    }
 }
