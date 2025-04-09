@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('product.view');
     Route::get('/product/getProductPrice/{id}', [ProductController::class, 'getProductPrice'])->name('product.price');
     Route::post('/product/invoice', [ProductController::class, 'pdfGenerate'])->name('product.invoice');
+    Route::post('/product/submit', [ProductController::class, 'submit'])->name('product.submit');
 });
 
 //dashboard page
