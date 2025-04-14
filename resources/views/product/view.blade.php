@@ -5,6 +5,9 @@
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
     <title>company invoice - Bootdey.com</title>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
       <!-- Bootstrap Core CSS -->
@@ -19,7 +22,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-@if($errors->any())
+{{-- @if($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
             @foreach($errors->all() as $error)
@@ -27,10 +30,10 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif --}}
 
-<form action="{{ route('product.submit')}}" method="POST">
-    @csrf
+{{-- <form action="{{ route('product.submit')}}" method="POST"> --}}
+    {{-- @csrf --}}
     <div class="page-content container">
         <div class="page-header text-blue-d2">
             <h1 class="page-title text-secondary-d1">
@@ -88,29 +91,37 @@
                                         <th class="action-col" style="width: 10%;">Action</th>
                                     </tr>
                                 </thead>
+
+                             
                                 <tbody id="product-rows">
                                     <tr class="product-row align-middle text-center">
                                         <td class="row-number">1</td>
                                         <td>
-                                            <select class="form-control product-select" name="product_id[]">
-                                                <option value="">Select Product</option>
-                                                @foreach($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <div class="form-group">
+                                                <select class="form-control product-select" name="product_id[]">
+                                                    <option value="">Select Product</option>
+                                                    @foreach($products as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>                                  
                                         </td>
                                         <td>
-                                            <input type="text" name="price[]" class="form-control price text-center" readonly>
+                                            <div class="form-group">
+                                                <input type="text" name="price[]" class="form-control price text-center" readonly>
+                                            </div>                               
                                         </td>
                                         <td>
-                                            <div class="d-flex justify-content-center align-items-center">
+                                            <div class="d-flex justify-content-center align-items-center form-group">
                                                 <button type="button" class="btn btn-sm btn-danger qty-minus">-</button>
                                                 <input type="text" name="quantity[]" class="form-control qty mx-1 text-center" value="1" style="width: 60px;">
                                                 <button type="button" class="btn btn-sm btn-success qty-plus">+</button>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="total[]" class="form-control total-price text-center" readonly>
+                                            <div class="form-group">
+                                                <input type="text" name="total[]" class="form-control total-price text-center" readonly>
+                                            </div>
                                         </td>
                                         <td class="text-center action-col">
                                             <button type="button" class="btn btn-sm btn-danger remove-row">
@@ -128,25 +139,16 @@
                             </div>
                         
                             <div class="row mt-4">
-                                <div class="col-sm-6 text-grey-d2 text-95">
+                                <div class="col-sm-9 text-grey-d2 text-95">
                                     Thank you for your business
                                 </div>
     
-                                {{-- <div class="row mt-4 justify-content-end">
-                                    <div class="col-sm-5">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <strong>SubTotal (INR):</strong>
-                                            <input type="text" id="subtotal" class="form-control text-end w-50" readonly>
-                                        </div>
-                                        <div class="mt-2 text-end text-muted fst-italic" id="subtotal-words"></div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-sm-3 text-right d-flex flex-column align-items-end invoice-total">
                                     <div class="d-flex w-100 align-items-center">
                                         <span class="me-2">SubTotal</span> 
                                         <input type="text" id="subtotal" class="form-control text-end">
                                     </div>
-                                    <div class="mt-2 text-end text-muted fst-bold" id="subtotal-words"></div>
+                                    <div class="mt-4 text-end text-muted bold" id="subtotal-words"></div>
                                 </div>
                             </div>
                         </div>
@@ -154,14 +156,14 @@
                         {{-- Print Button --}}
                         <div class="page-tools mt-3">
                             <div class="action-buttons">
-                                <button type="submit" class="btn bg-white btn-light mx-1px text-95" id="print-button" onclick="printInvoice()">
+                                <button type="button" class="btn bg-white btn-light mx-1px text-95" id="print-button">
                                     <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                                     Print
                                 </button>
-                                <button type="submit" class="btn bg-white btn-light mx-1px text-95 mb-0">
+                                {{-- <button type="submit" class="btn bg-white btn-light mx-1px text-95 mb-0" id="submit-button">
                                     <i class="fa fa-upload text-success-m1 text-120 w-2 mr-1"></i>
                                     Submit
-                                </button>
+                                </button> --}}
                             </div>
                         </div>                     
                     <hr/>
@@ -169,7 +171,7 @@
             </div>
         </div>
     </div>
-</form>
+{{-- </form> --}}
 
 <!-- jQuery -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -187,7 +189,7 @@
         function numberToWords(num){
             const a = ['', 'One', 'Two', 'Three','Four','Five','Six','Seven','Eight','Nine','Ten',
                'Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
-            const b = ['', '', 'Twenty', 'Thirty', 'Fourty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
             if(num === 0)
             return 'Zero';
@@ -219,10 +221,40 @@
             });
         }
 
+        //dropdown
+        function selectedProductIds() {
+            let selected = [];
+            $('.product-select').each(function () {
+                let val = $(this).val();
+                if (val) selected.push(val);
+            });
+            return selected;
+        }
+
+        function updateProductDropdowns() {
+            let selectedIds = selectedProductIds();
+
+            $('.product-select').each(function () {
+                let currentVal = $(this).val();
+                $(this).find('option').each(function () {
+                    let optionVal = $(this).val();
+                    if (optionVal === "") return; // keep "Select Product"
+
+                    if (selectedIds.includes(optionVal) && optionVal !== currentVal) {
+                        $(this).hide(); 
+                    } else {
+                        $(this).show(); 
+                    }
+                });
+            });
+        }
+
         function bindRowEvents(row) {
             row.find('.product-select').off().on('change', function () {
                 let productId = $(this).val();
                 let currentRow = $(this).closest('.product-row');
+
+                updateProductDropdowns();
                 if (productId) {
                     $.ajax({
                         url: '/product/getProductPrice/' + productId,
@@ -258,6 +290,7 @@
                 $(this).closest('.product-row').remove();
                 updateRowNumbers();
                 updateSubtotal();
+                updateProductDropdowns(); 
             });
         }
 
@@ -266,17 +299,19 @@
 
         // Add More Button
         $('#add-more').click(function () {
+            
             let lastRow = $('.product-row').last();
             let newRow = lastRow.clone();
 
             newRow.find('select').val('');
-            newRow.find('.price').val('');
+            newRow.find('.price').val(0);
             newRow.find('.qty').val(1);
             newRow.find('.total-price').val('');
 
             $('#product-rows').append(newRow);
             bindRowEvents(newRow);
             updateRowNumbers();
+            updateProductDropdowns(); 
         });
 
         updateSubtotal(); // initialize subtotal
@@ -284,58 +319,162 @@
 </script>
 
 <script>
-    // document.getElementById('pdfForm').addEventListener('submit', function(e) {
-    //     let products = [];
-    
-    //     document.querySelectorAll('.product-row').forEach(function(row) {
-    //         const productId = row.querySelector('.product-select').value;
-    //         const price = row.querySelector('.price').value;
-    //         const qty = row.querySelector('.qty').value;
-    
-    //         if (productId) {
-    //             products.push({
-    //                 id: productId,
-    //                 price: price,
-    //                 qty: qty
-    //             });
+    // function printInvoice(){
+    //     const selects   = document.querySelectorAll('.product-select');
+    //     let allValid    = true;
+        
+    //     document.querySelectorAll('.product-error').forEach(el => el.remove());
+    //     selects.forEach((select, index) => {
+    //     if (select.value === '') {
+    //         allValid = false;
+            
+    //         const errorDiv      = document.createElement('div');
+    //         errorDiv.className  = 'text-danger product-error';
+    //         errorDiv.textContent= 'Please select a product for this row.';
+    //         select.parentNode.appendChild(errorDiv);
     //         }
     //     });
-    
-    //     document.getElementById('productData').value = JSON.stringify(products);
-    // });
-    // document.getElementById('print-button').addEventListener('click', function () {
-    //     window.print(); // Let browser handle it (user can Save as PDF or print)
-    // });
-    function printInvoice(){
-        const selects = document.querySelectorAll('.product-select');
-        let allValid = true;
-        
-        document.querySelectorAll('.product-error').forEach(el => el.remove());
-        selects.forEach((select, index) => {
-        if (select.value === '') {
-        allValid = false;
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'text-danger product-error';
-        errorDiv.textContent = 'Please select a product for this row.';
-        select.parentNode.appendChild(errorDiv);
-        }
-        });
-        if (!allValid) {
-        return;
-        }
-        window.print();
-    }
+    //     if (!allValid) {
+    //         return;
+    //     }
+    //     window.print();
+    // }
     document.getElementById('add-more', 'print-button').addEventListener('click', function (e) {
         e.preventDefault(); // stops default form submission
         // your logic to add new row goes here...
     });
 
+    document.getElementById('print-button').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Remove old error messages
+        document.querySelectorAll('.text-danger').forEach(el => el.remove());
+
+        let formData = {
+            product_id  : [],
+            quantity    : [],
+            price       : [],
+            total       : [],
+            _token: '{{ csrf_token() }}'
+        };
+
+        let valid = true;
+
+        document.querySelectorAll('.product-row').forEach((row, index) => {
+            let productSelect   = row.querySelector('.product-select');
+            let qtyInput        = row.querySelector('.qty');
+            let priceInput      = row.querySelector('.price');
+            let totalInput      = row.querySelector('.total-price');
+
+            let productId   = productSelect.value;
+            let qty         = qtyInput.value;
+            let price       = priceInput.value;
+            let total       = totalInput.value;
+
+            if (!productId) {
+                let error   = document.createElement('div');
+                error.className = 'text-danger';
+                error.innerText = 'Please select a product.';
+                productSelect.parentElement.appendChild(error);
+                valid = false;
+            }
+
+            formData.product_id.push(productId);
+            formData.quantity.push(qty);
+            formData.price.push(price);
+            formData.total.push(total);
+        });
+
+        if (!valid) return;
+
+        fetch('{{ route('product.submit') }}', {
+            method: 'POST',
+            headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+            body: JSON.stringify(formData)
+        })
+        .then(res => res.json())
+        // .then(response => {
+        //     if (response.success) {
+        //         alert('Invoice submitted successfully.');
+        //         window.onafterprint = function () {
+        //             location.reload();
+        //         };
+        //         window.print();
+        //     } else if (response.errors) {
+        //         // Optional: Show Laravel validation errors from backend
+        //         Object.entries(response.errors).forEach(([field, messages]) => {
+        //             alert(messages.join('\n')); // You can also show this inline per field
+        //         });
+        //     }
+        // })
+        .then(response => {
+            if (response.success) {
+                alert('Invoice submitted successfully.');
+                window.onafterprint = function () {
+                    location.reload();
+                };
+                window.print();
+            } else {
+                // Show custom message like "Insufficient balance..."
+                if (response.message) {
+                    alert(response.message);
+                }
+
+                // Show validation errors if available
+                if (response.errors) {
+                    Object.entries(response.errors).forEach(([field, messages]) => {
+                        alert(messages.join('\n'));
+                    });
+                }
+            }
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            alert('Something went wrong!');
+        });
+    });
+
+    //validation
+    // $(document).ready(function($) {
+        
+    //     $("#product-rows").validate({
+    //         rules: {
+    //             product_id: "required",                    
+    //             quantity:   "required",
+    //             price:      "required",
+    //             total:      "required",   
+    //         },
+    //         messages: {
+    //             product_id: "Please select product",                   
+    //             quantity:   "Please select quantity",
+    //             price:      "Please select amount",
+    //             //total:      "Please select product",
+            
+    //         },
+    //         errorPlacement: function(error, element) 
+    //         {
+    //             if ( element.is(":text") ) 
+    //             {
+    //                 error.appendTo( element.parents('.form-group') );
+    //             }
+    //             else 
+    //             { // This is the default behavior 
+    //                 error.insertAfter( element );
+    //             }
+    //         },
+    //         submitHandler: function(form) {
+    //             form.submit();
+    //         }
+        
+    //     });
+    // });
+
 </script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	
-</script>
 </body>
 </html>
