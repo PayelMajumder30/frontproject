@@ -32,6 +32,12 @@
                         <i class="fa fa-briefcase"></i> Designation
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('product.list')}}">
+                        <i class="fa fa-shopping-cart"></i> Total Orders
+                    </a>
+                </li>
+                
             @endif
             
             <li>
@@ -80,6 +86,9 @@
                 <li>
                     <a href="{{route('users.chat', ['userId' => auth()->id()])}}" ><i class="fa fa-envelope fa-fw"></i> Chat with Admin</a>
                 </li>
+                <li>
+                    <a href="{{route('users.orderHistory')}}" ><i class="fa fa-history fa-fw"></i> Order History</a>
+                </li>
             @endif
 
             @if(auth()->check() && auth()->user()->is_team_leader)
@@ -97,6 +106,9 @@
             @if(auth()->check() && auth()->user()->role === 'user')
                 <li>
                     <a href="{{route('product.view', auth()->user()->id)}}" ><i class="fa fa-shopping-cart"></i> Products </a>
+                </li>
+                <li>
+                    <a href="{{ route('wallet.show', auth()->user()->id)}}"><i class="fa-solid fa-wallet"></i> Wallet</a>
                 </li>
             @endif
 

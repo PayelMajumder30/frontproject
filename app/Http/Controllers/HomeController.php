@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{User, Product, Invoice, InvoiceItem};
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     //
     public function dashboardview(){
-        return view('dashboard');
+        $totalUsers = Invoice::distinct('user_id')->count('user_id');
+
+        // Total invoices
+        $totalInvoices = Invoice::count();
+
+        // Total amount from all invoices
+        $totalAmount = Invoice::sum('total_amount');
+        $totalProduct = Product::count();
+        return view('dashboard', compact('totalUsers', 'totalInvoices', 'totalAmount', 'totalProduct'));
     }
 
     public function flotview(){

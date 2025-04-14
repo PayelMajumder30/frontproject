@@ -63,3 +63,16 @@
 .dummystyle{
     margin-top: 35px;
 }
+
+.pagination-container {
+    float: right;
+}
+
+.pagination-container .page-link {
+    padding: 0.25rem 0.5rem;
+}
+
+.cartlist {
+    text-align: right;
+}
+
