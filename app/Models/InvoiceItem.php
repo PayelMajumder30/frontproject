@@ -9,13 +9,13 @@ class InvoiceItem extends Model
 {
     use HasFactory;
     protected $table = "invoice_items";
-    protected $fillable = ['invoice_id', 'product_id', 'quantity', 'amount', 'items_per_amount'];
+    protected $fillable = ['invoice_id', 'product_id', 'quantity', 'amount', 'piece_per_amount'];
 
     public function invoice(){
-        return $this->belongsTo('invoice_id', 'id');
+        return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
     }
 
     public function product(){
-        return $this->belongsTo('product_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

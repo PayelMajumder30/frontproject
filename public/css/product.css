@@ -116,7 +116,7 @@ hr {
 }
 
 @media print {
-    .action-col, #add-more, .page-tools, .qty-plus, .qty-minus{
+    .action-col, #add-more, .page-tools, .qty-plus, .qty-minus, .product-error{
         display: none !important;
     }
 

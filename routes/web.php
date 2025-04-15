@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController, 
-    TeamController, ProductController};
+    TeamController, ProductController, WalletController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
@@ -50,6 +50,8 @@ Route::prefix('designation')->group(function() {
 Route::middleware(['auth'])->group(function () {
     Route::get('users/chat/{userId}', [UserController::class, 'index'])->name('users.chat');
     Route::post('users/chat/send/{userId}', [UserController::class, 'sendMessage'])->name('users.chat.send');
+    Route::get('users/order_history', [UserController::class, 'orderDetail'])->name('users.orderHistory');
+    Route::get('users/order_view/{id}', [UserController::class, 'orderView'])->name('users.orderView');
 });
 
 //Update Profile
@@ -67,15 +69,25 @@ Route::middleware(['auth'])->group(function (){
 });
 
 //products
-Route::middleware(['auth'])->group(function (){
-    Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('product.view');
-    Route::get('/product/getProductPrice/{id}', [ProductController::class, 'getProductPrice'])->name('product.price');
-    Route::post('/product/invoice', [ProductController::class, 'pdfGenerate'])->name('product.invoice');
-    Route::post('/product/submit', [ProductController::class, 'submit'])->name('product.submit');
+Route::middleware(['auth'])->prefix('product')->group(function (){
+    Route::get('/view/{id}', [ProductController::class, 'view'])->name('product.view');
+    Route::get('/getProductPrice/{id}', [ProductController::class, 'getProductPrice'])->name('product.price');
+    Route::post('/invoice', [ProductController::class, 'pdfGenerate'])->name('product.invoice');
+    Route::post('/submit', [ProductController::class, 'submit'])->name('product.submit');
+    Route::get('/list', [ProductController::class, 'index'])->name('product.list');
 });
 
+//wallets
+Route::middleware(['auth'])->prefix('wallet')->group(function (){
+    Route::get('/', [WalletController::class, 'view'])->name('wallet.show');
+    Route::get('/recharge', [WalletController::class, 'create'])->name('wallet.create');
+    Route::post('/recharge', [WalletController::class, 'store'])->name('wallet.store');
+});
+
+
+
 //dashboard page
-Route::get('/',[HomeController::class, 'dashboardview'])->name('dashboard');
+Route::get('/',[HomeController::class, 'dashboardview'])->name('dashboard')->middleware('auth');;
 
 //flot page
 Route::get('/flot',[HomeController::class, 'flotview'])->name('flot');
