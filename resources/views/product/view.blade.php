@@ -420,7 +420,7 @@
             } else {
                 // Show custom message like "Insufficient balance..."
                 if (response.message) {
-                    alert(response.message);
+                    alert(response.message || 'Something went');
                 }
 
                 // Show validation errors if available
@@ -437,40 +437,6 @@
         });
     });
 
-    //validation
-    // $(document).ready(function($) {
-        
-    //     $("#product-rows").validate({
-    //         rules: {
-    //             product_id: "required",                    
-    //             quantity:   "required",
-    //             price:      "required",
-    //             total:      "required",   
-    //         },
-    //         messages: {
-    //             product_id: "Please select product",                   
-    //             quantity:   "Please select quantity",
-    //             price:      "Please select amount",
-    //             //total:      "Please select product",
-            
-    //         },
-    //         errorPlacement: function(error, element) 
-    //         {
-    //             if ( element.is(":text") ) 
-    //             {
-    //                 error.appendTo( element.parents('.form-group') );
-    //             }
-    //             else 
-    //             { // This is the default behavior 
-    //                 error.insertAfter( element );
-    //             }
-    //         },
-    //         submitHandler: function(form) {
-    //             form.submit();
-    //         }
-        
-    //     });
-    // });
 
 </script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

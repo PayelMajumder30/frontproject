@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{AdminController, UserController, HomeController, ProfileController, DesignationController, 
-    TeamController, ProductController, WalletController};
+    TeamController, ProductController, WalletController, LedgerController};
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ResetPasswordController};
 use App\Http\Middleware\CheckIsAdmin;
 
@@ -82,6 +82,11 @@ Route::middleware(['auth'])->prefix('wallet')->group(function (){
     Route::get('/', [WalletController::class, 'view'])->name('wallet.show');
     Route::get('/recharge', [WalletController::class, 'create'])->name('wallet.create');
     Route::post('/recharge', [WalletController::class, 'store'])->name('wallet.store');
+});
+
+//ledger
+Route::middleware(['auth'])->group(function (){
+    Route::get('/ledger', [LedgerController::class, 'view'])->name('ledger.show');
 });
 
 

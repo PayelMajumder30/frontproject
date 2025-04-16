@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use App\Models\{User, Product, Invoice, InvoiceItem, Wallet};
+use App\Models\{User, Product, Invoice, InvoiceItem, Wallet, Ledger};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -139,6 +139,14 @@ class ProductController extends Controller
                 'email'          => $user->email,
                 'total_amount'   => $totalAmount,
                 'invoice_number' => $invoiceNumber,
+            ]);
+            Ledger::create([
+                'user_id'               => $invoice->user_id,
+                'transaction_number'    => $invoice->invoice_number,
+                'transaction_amount'    => $invoice->total_amount,
+                'purpose'               => 'debit',
+                'is_credit'             => 0,
+                'is_debit'              => 1,
             ]);
 
             foreach ($data['product_id'] as $index => $productId) {

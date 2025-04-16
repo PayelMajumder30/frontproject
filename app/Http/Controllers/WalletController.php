@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{User, Wallet, Invoice};
+use App\Models\{User, Wallet, Invoice, Ledger};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -13,11 +13,15 @@ class WalletController extends Controller
     public function view(){
         $user       = Auth::user();
 
-        $wallet     = Wallet::where('user_id', $user->id)->first();
-        $invoices   = Invoice::where('user_id', $user->id)
-                            ->orWhere('created_at', 'desc')
-                            ->get();
-        return view('wallet.show', compact('wallet', 'invoices'));
+        // $wallet     = Wallet::where('user_id', $user->id)->first();
+        // $invoices   = Invoice::where('user_id', $user->id)
+        //                     ->orWhere('created_at', 'desc')
+        //                     ->get();
+
+        $wallet = Wallet::where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
+
+        $totalBalance = $wallet->sum('wallet_balance');
+        return view('wallet.show', compact('wallet', 'totalBalance'));
     }
 
     public function create() {
@@ -29,13 +33,22 @@ class WalletController extends Controller
             'amount' => 'required|numeric|min:1',
         ]);
 
-        $wallet = Wallet::firstOrCreate(
-            ['user_id'          => auth()->id()],
-            ['wallet_balance'   => 0]
-        );
+        $rechargeAmount = $request->amount;
+        Wallet::create([
+            'user_id'           => auth()->id(),
+            'wallet_balance'    => $rechargeAmount,  // Ensure wallet_balance is provided
+            'created_at'        => now(),
+            'updated_at'        => now(),  // If you want to manually set the updated_at
+        ]);
 
-        $wallet->wallet_balance += $request->amount;
-        $wallet->save();
+        Ledger::create([
+            'user_id'               => auth()->id(),
+            'transaction_number'    => 0, // You can use a unique ID or just 0 for wallet top-up
+            'transaction_amount'    => $rechargeAmount, // the amount user recharged
+            'purpose'               => 'credit',
+            'is_credit'             => 1,
+            'is_debit'              => 0,
+        ]);
 
         return redirect()->route('wallet.show')->with('success', 'Wallet recharged successfully!');
     }

@@ -20,8 +20,8 @@
 <div class="container">
     <h2>My Wallet</h2>
 
-    @if($wallet && $wallet->wallet_balance > 0)
-        <p><strong>Wallet Balance:</strong> {{env('CURRENCY')}}{{ number_format($wallet->wallet_balance, 2)}}</p>
+    @if($totalBalance > 0)
+        <p><strong>Wallet Balance:</strong> {{env('CURRENCY')}}{{ number_format($totalBalance, 2)}}</p>
         <a href="{{ route('wallet.create') }}" class="btn btn-secondary">Add More</a>
     @else
         <p>No Wallet Balance Yet.</p>
@@ -30,7 +30,7 @@
 
     <hr>
 
-    <h2>Wallet Deduction History</h2>
+    {{-- <h2>Wallet Deduction History</h2>
     @if($invoices->count() > 0)
         <table class="table table-bordered">
             <thead>
@@ -52,7 +52,37 @@
         </table>
     @else
         <p>No transactions found.</p>
-    @endif
+    @endif --}}
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th> {{-- Serial number --}}
+                <th>Amount Added</th>
+                <th>Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php 
+                $sl = 0;
+            @endphp
+            @forelse($wallet as $index => $item)
+            @php 
+                $sl++;
+            @endphp
+                <tr>
+                    <td>{{ $sl }}</td>
+                    <td>{{ env('CURRENCY')}}{{ number_format($item->wallet_balance, 2) }}</td>
+                    <td>{{date('d-m-Y h:i A', strtotime($item->created_at))}}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3" class="text-center">No wallet transactions found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+    
 </div>
 
 
