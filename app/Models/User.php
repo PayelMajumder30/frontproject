@@ -88,4 +88,8 @@ class User extends Authenticatable
     public function wallet() {
         return $this->hasMany(Wallet::class, 'user_id');
     }
+
+    public function ledger() {
+        return $this->hasMany(ledger::class, 'user_id');
+    }
 }

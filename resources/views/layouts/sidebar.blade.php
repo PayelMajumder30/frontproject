@@ -108,7 +108,10 @@
                     <a href="{{route('product.view', auth()->user()->id)}}" ><i class="fa fa-shopping-cart"></i> Products </a>
                 </li>
                 <li>
-                    <a href="{{ route('wallet.show', auth()->user()->id)}}"><i class="fa-solid fa-wallet"></i> Wallet</a>
+                    <a href="{{ route('wallet.show', auth()->user()->id)}}"><i class="fa fa-money"></i> Wallet</a>
+                </li>
+                <li>
+                    <a href="{{ route('ledger.show', auth()->user()->id)}}"><i class="fa fa-google-wallet"></i> ledger</a>
                 </li>
             @endif
 
