@@ -30,35 +30,11 @@
 
     <hr>
 
-    {{-- <h2>Wallet Deduction History</h2>
-    @if($invoices->count() > 0)
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Invoice Number</th>
-                    <th>Amount Deducted</th>
-                    <th>Date & Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($invoices as $invoice)
-                    <tr>
-                        <td>{{ $invoice->invoice_number}}</td>
-                        <td>{{ env('CURRENCY')}}{{number_format($invoice->total_amount, 2)}}</td>
-                        <td>{{date('d-m-Y h:i A', strtotime($invoice->created_at))}}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @else
-        <p>No transactions found.</p>
-    @endif --}}
-
-    <table class="table table-bordered">
+    {{-- <table class="table table-bordered">
         <thead>
             <tr>
-                <th>#</th> {{-- Serial number --}}
-                <th>Amount Added</th>
+                <th>#</th> 
+                <th>Last Recharge amount</th>
                 <th>Date & Time</th>
             </tr>
         </thead>
@@ -81,7 +57,7 @@
                 </tr>
             @endforelse
         </tbody>
-    </table>
+    </table> --}}
     
 </div>
 

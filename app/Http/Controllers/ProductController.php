@@ -48,53 +48,6 @@ class ProductController extends Controller
     public function submit(Request $request){
        // dd($request->all());
 
-    //     $data = $request->all();
-
-    //     $validator = Validator::make($data, [
-    //         'product_id.*'  => 'required|exists:products,id',
-    //         'quantity.*'    => 'required|integer|min:1',
-    //         'price.*'       => 'required|numeric|min:0',
-    //         'total.*'       => 'required|numeric|min:0',
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
-    //     }
-    //     // 
-    //     $user = Auth::user();
-    //     $totalAmount = 0;
-
-    //     foreach ($data['product_id'] as $index => $productId) {
-    //         $quantity       = $request->quantity[$index];
-    //         $price          = $request->price[$index];
-    //         $total          = $request->total[$index];
-    //         $totalAmount    += $total;
-    //     }
-
-    //     $invoiceNumber = date('Ymd'). '-' . rand(100, 999);
-    //     $invoice = Invoice::create([
-    //         'user_id'       => $user->id,
-    //         'user_name'     => $user->name,
-    //         'address'       => $user->address ?? '',
-    //         'email'         => $user->email,
-    //         'total_amount'  => $totalAmount,
-    //         'invoice_number'=> $invoiceNumber,
-    //     ]);
-
-    //     foreach ($data['product_id'] as $index => $productId) {
-    //         $product = Product::find($productId);
-    //         $itemsPeramount =  $product ? $product->price : 0 ;
-    //         InvoiceItem::create([
-    //             'invoice_id'        => $invoice->id,
-    //             'product_id'        => $productId,
-    //             'quantity'          => $data['quantity'][$index],
-    //             'amount'            => $data['total'][$index],
-    //             'piece_per_amount'  => $itemsPeramount,
-    //         ]);
-    //     }
-
-    //     //return redirect()->back()->with('success', 'Invoice submitted successfully.');
-    //     return response()->json(['success' => true, 'message' => 'Invoice submitted successfully']);
-
         try {
             $data = $request->all();
 
