@@ -34,15 +34,28 @@ class WalletController extends Controller
         ]);
 
         $rechargeAmount = $request->amount;
-        Wallet::create([
-            'user_id'           => auth()->id(),
-            'wallet_balance'    => $rechargeAmount,  // Ensure wallet_balance is provided
-            'created_at'        => now(),
-            'updated_at'        => now(),  // If you want to manually set the updated_at
-        ]);
+        $userId = auth()->id();
+
+        $wallet = Wallet::where('user_id', $userId)->first();
+
+        if($wallet) {
+            $wallet->wallet_balance   += $rechargeAmount;
+            $wallet->amount_added      = $rechargeAmount;
+            $wallet->updated_at        = now();
+            $wallet->save();  
+        }
+        else{            
+            Wallet::create([
+                'user_id'           => $userId,
+                'wallet_balance'    => $rechargeAmount,  // Ensure wallet_balance is provided
+                'amount_added'      => $rechargeAmount,
+                'created_at'        => now(),
+                'updated_at'        => now(),  // If you want to manually set the updated_at
+            ]);
+        }
 
         Ledger::create([
-            'user_id'               => auth()->id(),
+            'user_id'               => $userId,
             'transaction_number'    => 0, // You can use a unique ID or just 0 for wallet top-up
             'transaction_amount'    => $rechargeAmount, // the amount user recharged
             'purpose'               => 'credit',
