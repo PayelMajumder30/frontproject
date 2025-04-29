@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\{Team, Chatbox, Designation, User};
+use App\Models\{Team, Chatbox, Designation, User, Ledger};
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -117,5 +117,21 @@ class AdminController extends Controller
         $message = $user->is_team_leader ? "{$user->name} is no longer a Team Leader." :"{$user->name} has been assigned as Team Leader successfully.";
         return redirect()->back()->with('success', $message);
     }
+
+
+    //all users
+    public function userLedgers() {
+        $ledgers = Ledger::with('user')
+                    ->orderBy('created_at')
+                    ->paginate(10);
+
+        $totalCredit   = Ledger::where('is_credit', 1)->sum('transaction_amount');
+        $totalDebit    = Ledger::where('is_debit', 1)->sum('transaction_amount');
+        $balance       = $totalCredit - $totalDebit;
+
+        return view('admin.allLedgers', compact('ledgers', 'totalCredit', 'totalDebit', 'balance'));
+    }
+
+
    
 }

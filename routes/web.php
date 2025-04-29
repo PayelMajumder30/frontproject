@@ -25,9 +25,9 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 //Admin chat routes
 Route::prefix('admin')->group(function(){
     Route::get('/userlist', [AdminController::class, 'allUsers'])->middleware(CheckIsAdmin::class . ':role')->name('users');
-    //Route::get('admin/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
     Route::get('/userdetails', [AdminController::class, 'detailUsers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userdetails');
-    // Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
+    Route::get('/userledgers', [AdminController::class, 'userLedgers'])->middleware(CheckIsAdmin::class . ':role')->name('admin.userLedgers');
+    //Route::get('users', [AdminController::class, 'chatbox'])->middleware(CheckIsAdmin::class . ':role')->name('chatbox');
     Route::get('/chat/{userId}', [AdminController::class, 'chat'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat'); 
     Route::post('/chat/send/{userId}', [AdminController::class, 'sendmessage'])->middleware(CheckIsAdmin::class . ':role')->name('admin.adminchat.send'); 
     Route::get('/unread-messages', [AdminController::class, 'getUnreadMessages'])->middleware(CheckIsAdmin::class . ':role')->name('admin.unreadMessages');

@@ -68,12 +68,12 @@
                     <div id="invoice-table">
                         <table class="table table-bordered table-sm text-center">
                             <thead class="thead-light">
-                                <tr class="text-center">
+                                <tr>
                                     <th style="width: 50px">#</th>
-                                    <th>Name</th>
-                                    <th>Invoice ID</th>
-                                    <th>Total Amount</th>
-                                    <th>Date</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Invoice ID</th>
+                                    <th class="text-center">Total Amount</th>
+                                    <th class="text-center">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,8 +93,8 @@
     
                                 @if($data->count() > 0)
                                     <tr class="bg-light font-weight-bold subtotal-row">
-                                        <td colspan="3" class="text-right">Sub-total:</td>
-                                        <td colspan="2" class="text-left">{{ number_format($subtotal, 2) }}</td>
+                                        <td colspan="3" class="text-center">Sub-total:</td>
+                                        <td colspan="2" class="text-center">{{ number_format($subtotal, 2) }}</td>
                                     </tr>
                                 @endif
                             </tbody>
@@ -164,9 +164,7 @@
         });
     });
 
-
 </script>
-
 
     <!-- DataTables JavaScript -->
     <script src="{{ asset('js/dataTables/jquery.dataTables.min.js')}}"></script>
