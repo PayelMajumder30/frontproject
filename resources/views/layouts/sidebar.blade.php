@@ -37,6 +37,11 @@
                         <i class="fa fa-shopping-cart"></i> Total Orders
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.userLedgers')}}">
+                        <i class="fa fa-google-wallet"></i> All Ledgers
+                    </a>
+                </li>
                 
             @endif
             
